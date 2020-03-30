@@ -26,18 +26,30 @@ function doFormat() {
 
 function doProcessLine(line) {
   const trimmedLine = line.trim()
-  const usedQuote = trimmedLine.substring(0, 1)
-  const isQuoted = supportedQuotes.includes(usedQuote)
-  if (!isQuoted) {
-    // FIXME should probably still do line breaks
-    process.stdout.write(line + '\n')
-    debug('Does not start with a quote')
+  const usedQuote = (() => {
+    const firstChar = trimmedLine.substring(0, 1)
+    const isQuoted = supportedQuotes.includes(firstChar)
+    if (!isQuoted) {
+      debug('Does not start with a quote')
+      const noQuote = ''
+      return noQuote
+    }
+    return firstChar
+  })()
+  if (!usedQuote) {
+    // FIXME when we don't have quotes, we need to
+    //  - find first non-space char instead of opening quote
+    //  - still compute indent
+    //  - inject quotes into the final string (find appropriate based on what's in the string)
+    write(line)
     return
   }
-  debug('Quote used=' + usedQuote)
+  // FIXME handle variable declarations
+  // FIXME handle keys in objects
+  // FIXME handle array items
+  debug('Quote used=' + (usedQuote ? usedQuote : '(no quotes)'))
   const indexOfOpeningQuote = line.indexOf(usedQuote)
   const indentAmount = indexOfOpeningQuote
-  // FIXME handle extra length from quotes, spaces and +'s
   const resultLines = []
   // remove leading quote
   let workingCopy = trimmedLine.substring(1)
