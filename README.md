@@ -12,6 +12,7 @@ https://vi.stackexchange.com/questions/15764/how-to-format-quotes-so-that-vim-br
 ## How to use it
 I designed it with `vim` in mind so you would use it like this:
 
+  1. clone this repo
   1. launch vim
   1. set as your `formatprg` with `:set fp=/path/to/this/repo/jsslb.js`
   1. select your lines with long literals (can be multiple lines) in visual mode
@@ -43,3 +44,10 @@ $ echo "    'some really long string that is wider than the allowable textwidth,
     'but can be changed by setting ' +
     'the TW env var'
 ```
+
+## TODO
+There's always more to do
+
+  1. automated units tests (I know, I was lazy)
+  1. package as npm module so it can be easily installed
+  1. handle more cases, like dealing with lines that aren't just string literals
