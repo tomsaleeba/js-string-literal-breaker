@@ -41,6 +41,8 @@ function doProcessLine(line) {
   const resultLines = []
   // remove leading quote
   let workingCopy = trimmedLine.substring(1)
+  // remove trailing + as we'll add that back in as needed
+  workingCopy = workingCopy.replace(/\s*\+\s*$/, '')
   // remove trailing quote, comma and space(s)
   const optionalCommaAndZeroOrMoreTrailingSpacesRegexStr = ',?\\s*$'
   const isTrailingComma = (() => {
