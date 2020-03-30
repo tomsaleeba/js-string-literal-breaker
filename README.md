@@ -8,7 +8,13 @@ I designed it with `vim` in mind so you would use it like this:
   1. set as your `formatprg` with `:set fp=/path/to/this/repo/jsslb.js`
   1. select your long literals (can be multiple lines) in visual mode
   1. use `gq` to send those lines to this formatter
+  1. revert setting the `formatprg` option as this script can't handle anything else
   1. profit
+
+There is a vim script in this directory that you can source to make life
+easier. It binds a leader sequence so you can easily toggle the this formatter
+on and off. To use it, in vim just source the script `:source
+/path/to/this/repo/script.vim`. The default mapping is `<leader>j`.
 
 There's still a lot to do here. It doesn't even do the job it was designed for
 perfectly but on top of that, it also need to take the place of the built in

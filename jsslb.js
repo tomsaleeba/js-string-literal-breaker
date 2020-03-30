@@ -42,18 +42,40 @@ function doProcessLine(line) {
   // remove leading quote
   let workingCopy = trimmedLine.substring(1)
   // remove trailing quote, comma and space(s)
-  workingCopy = workingCopy.replace(new RegExp(usedQuote + ',?\\s*$'), '')
+  const optionalCommaAndZeroOrMoreTrailingSpacesRegexStr = ',?\\s*$'
+  const isTrailingComma = (() => {
+    const requiredCommaAndZeroOrMoreTrailingSpacesRegexStr = optionalCommaAndZeroOrMoreTrailingSpacesRegexStr.replace(
+      '?',
+      '',
+    )
+    return !!workingCopy.match(requiredCommaAndZeroOrMoreTrailingSpacesRegexStr)
+  })()
+  workingCopy = workingCopy.replace(
+    new RegExp(usedQuote + optionalCommaAndZeroOrMoreTrailingSpacesRegexStr),
+    '',
+  )
   const indentText = ' '.repeat(indentAmount)
   const lengthOfExtraCharsOnContinuedLines = `${usedQuote}${usedQuote}`.length
   const lengthOfExtraCharsOnLastLine = `${lengthOfExtraCharsOnContinuedLines} +`
     .length
+  let loopCount = 0
+  const maxLoops = 999
   while (workingCopy) {
+    if (loopCount++ > maxLoops) {
+      throw new Error(
+        'Programmer problem: hit max loop count, probably running away',
+      )
+    }
     const isShortEnoughForFinalLine =
       indentText.length + workingCopy.length + lengthOfExtraCharsOnLastLine <=
       textWidth
     if (isShortEnoughForFinalLine) {
       debug('Remaining text is short enough for final line')
-      resultLines.push(`${indentText}${usedQuote}${workingCopy}${usedQuote}`)
+      resultLines.push(
+        `${indentText}${usedQuote}${workingCopy}${usedQuote}${
+          isTrailingComma ? ',' : ''
+        }`,
+      )
       workingCopy = null
       break
     }
@@ -71,19 +93,24 @@ function doProcessLine(line) {
       )
       const indexOfLastSpace = truncated.lastIndexOf(' ')
       debug('Index of last space=' + indexOfLastSpace)
-      const isNoSpaceInText =
-        indexOfLastSpace <
+      const frontPaddingLength =
         indentAmount + moreCharsRepresentingQuotesAndStuff.length
-      if (isNoSpaceInText) {
+      const isNoSpaceInText = indexOfLastSpace < frontPaddingLength
+      const isLastSpaceInLeadingSpaces = (() => {
+        const leadingSpaceCount =
+          truncated.length - truncated.trimStart().length
+        return indexOfLastSpace < leadingSpaceCount
+      })()
+      if (isNoSpaceInText || isLastSpaceInLeadingSpaces) {
         // no spaces to nicely break, so do it not nicely
-        return truncated.trim()
+        return truncated.substring(frontPaddingLength)
       }
-      return truncated.substring(0, indexOfLastSpace).trimStart()
+      return truncated.substring(frontPaddingLength, indexOfLastSpace + 1)
     })()
     resultLines.push(
       `${indentText}${usedQuote}${contentThatFits}${usedQuote} +`,
     )
-    workingCopy = workingCopy.replace(contentThatFits, '')
+    workingCopy = workingCopy.substring(contentThatFits.length)
   }
   for (const curr of resultLines) {
     write(curr)

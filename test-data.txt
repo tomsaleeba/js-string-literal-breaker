@@ -6,3 +6,4 @@
     'Indent, trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ornare justo a est viverra eleifend. Nulla sed fringilla nisl.',
       'Indent, no trailing comma, too long, nested different quotes: Lorem "ipsum" dolor sit amet, consectetur adipiscing elit.'
 "Too_long_but_no_spaces_to_break_at_Lorem_ipsum_dolor_sit_amet,_consectetur_adipiscing_elit._Phasellus_pretium_id_diam_eget_mollis._Aliquam_dignissim,_metus_a_volutpat_hendrerit,_mauris_lacus_dignissim_enim,_sit_amet_pharetra_metus_mi_ut_tellus.",
+        `In the case of unusual or difficult species a moderator may assist with identification. More information in the 'identifying the animals!' tab on the somethingzz website: <a href="https://www.example.com/zzz/pages/getting+started#how_ident_work" >https://www.example.com/zzz/pages/getting+started#how_ident_work</a >`,
