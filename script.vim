@@ -6,7 +6,7 @@ let s:origFp = &formatprg
 
 function! JsslbToggle()
   if &formatprg == s:origFp
-    let l:pathToJs = s:path . '/jsslb.js'
+    let l:pathToJs = s:path . '/index.js'
     echo 'toggling jsslb (' . l:pathToJs . ') on'
     execute ":set formatprg=" . l:pathToJs
   else

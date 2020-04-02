@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "name": "jsslb",
+  "description": "command line tool for formatting JS code, specifically breaking long string literal over multiple lines",
+  "bin": {
+    "jsslb": "./index.js"
+  },
+  "main": "./index.js",
+  "license": "MIT",
+  "author": "Tom Saleeba",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  }
+}

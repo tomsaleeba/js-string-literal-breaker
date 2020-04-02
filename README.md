@@ -14,7 +14,7 @@ I designed it with `vim` in mind so you would use it like this:
 
   1. clone this repo
   1. launch vim
-  1. set as your `formatprg` with `:set fp=/path/to/this/repo/jsslb.js`
+  1. set as your `formatprg` with `:set fp=/path/to/this/repo/index.js`
   1. select your lines with long literals (can be multiple lines) in visual mode
   1. use `gq` to send those lines to this formatter (or `gqq` without a
      selection)
@@ -30,14 +30,14 @@ on and off. To use it, in vim just source the script `:source
 Currently it only formats correctly when the string is the only thing on the
 line, so something like what you see in `./test-data.txt` or:
 ```console
-$ echo "    'some really long string that is wider than the allowable textwidth, which defaults to 80 but can be changed by setting the TW env var'" | ./jsslb.js
+$ echo "    'some really long string that is wider than the allowable textwidth, which defaults to 80 but can be changed by setting the TW env var'" | ./index.js
     'some really long string that is wider than the allowable textwidth, ' +
     'which defaults to 80 but can be changed by setting the TW env var'
 ```
 
 The default textwidth is 80 but you can configure that with the `TW` env var:
 ```console
-$ echo "    'some really long string that is wider than the allowable textwidth, which defaults to 80 but can be changed by setting the TW env var'" | TW=40 ./jsslb.js
+$ echo "    'some really long string that is wider than the allowable textwidth, which defaults to 80 but can be changed by setting the TW env var'" | TW=40 ./index.js
     'some really long string that is ' +
     'wider than the allowable ' +
     'textwidth, which defaults to 80 ' +
