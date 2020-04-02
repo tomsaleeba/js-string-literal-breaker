@@ -9,9 +9,12 @@
   "license": "MIT",
   "author": "Tom Saleeba",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prettier:check": "prettier --check \"**/*.js\"",
+    "prettier:format-all": "prettier --write \"**/*.js\""
   },
   "devDependencies": {
-    "mocha": "^7.1.1"
+    "mocha": "^7.1.1",
+    "prettier": "^2.0.2"
   }
 }

@@ -1,0 +1,60 @@
+version: 2.1
+
+executors:
+  default-executor:
+    docker:
+      - image: cypress/base:10
+
+jobs:
+  install-dependencies:
+    executor: default-executor
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-deps-{{ checksum "yarn.lock" }}
+            - v1-deps
+
+      - run:
+          name: 'Install dependencies'
+          command: yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: v1-deps-{{ checksum "yarn.lock" }}
+
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  check-prettier:
+    executor: default-executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: 'Run prettier check on project files'
+          command: yarn prettier:check
+
+  run-unit-tests:
+    executor: default-executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: 'Run unit tests'
+          command: yarn test
+
+workflows:
+  version: 2
+  run-tests:
+    jobs:
+      - install-dependencies:
+      - check-prettier:
+          requires:
+            - install-dependencies
+      - run-unit-tests:
+          requires:
+            - install-dependencies

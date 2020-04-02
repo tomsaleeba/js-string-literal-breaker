@@ -3,43 +3,43 @@ const objectUnderText = require('../lib/jsslb.js')._testonly
 
 const noopDebug = () => {}
 
-describe('doProcessLine', function() {
-  it('should return a short line with no quotes as-is', function() {
+describe('doProcessLine', function () {
+  it('should return a short line with no quotes as-is', function () {
     const input = "'No quotes, No indent, no trailing comma, not too long'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.equal(result[0], input)
     assert.equal(result.length, 1)
   })
 
-  it('should return a short line as-is', function() {
+  it('should return a short line as-is', function () {
     const input = "'Quotes, No indent, no trailing comma, not too long'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.equal(result[0], input)
     assert.equal(result.length, 1)
   })
 
-  it('should return a short line with trailing comma as-is', function() {
+  it('should return a short line with trailing comma as-is', function () {
     const input = "'Quotes, No indent, trailing comma, not too long',"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.equal(result[0], input)
     assert.equal(result.length, 1)
   })
 
-  it('should return an indented short line with trailing comma as-is', function() {
+  it('should return an indented short line with trailing comma as-is', function () {
     const input = "    'Indent, trailing comma, not too long',"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.equal(result[0], input)
     assert.equal(result.length, 1)
   })
 
-  it('should return an indented short line without trailing comma as-is', function() {
+  it('should return an indented short line without trailing comma as-is', function () {
     const input = "    'Indent, no trailing comma, not too long'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.equal(result[0], input)
     assert.equal(result.length, 1)
   })
 
-  it('should break an indented long line without trailing comma', function() {
+  it('should break an indented long line without trailing comma', function () {
     const input =
       "    'Indent, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -49,7 +49,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should break an indented long line with trailing comma', function() {
+  it('should break an indented long line with trailing comma', function () {
     const input =
       "    'Indent, trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ornare justo a est viverra eleifend. Nulla sed fringilla nisl.',"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -60,7 +60,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should break an indented long line without trailing comma and nested quotes', function() {
+  it('should break an indented long line without trailing comma and nested quotes', function () {
     const input = `      'Indent, no trailing comma, too long, nested different quotes: Lorem "ipsum" dolor sit amet, consectetur adipiscing elit.'`
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
@@ -69,7 +69,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should break a long line that has no spaces to break nicely at', function() {
+  it('should break a long line that has no spaces to break nicely at', function () {
     const input = `"Too_long_but_no_spaces_to_break_at_Lorem_ipsum_dolor_sit_amet,_consectetur_adipiscing_elit._Phasellus_pretium_id_diam_eget_mollis._Aliquam_dignissim,_metus_a_volutpat_hendrerit,_mauris_lacus_dignissim_enim,_sit_amet_pharetra_metus_mi_ut_tellus.",`
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
@@ -80,7 +80,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should break a long line that contains all three quotes', function() {
+  it('should break a long line that contains all three quotes', function () {
     const input =
       '        `In the case of unusual or difficult species a moderator may assist with identification. More information in the \'identifying the animals!\' tab on the somethingzz website: <a href="https://www.example.com/zzz/pages/getting+started#how_ident_work" >https://www.example.com/zzz/pages/getting+started#how_ident_work</a >`,'
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -95,7 +95,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should handle a long line with a trailing + symbol by stripping the + then formatting', function() {
+  it('should handle a long line with a trailing + symbol by stripping the + then formatting', function () {
     const input =
       "        `In the case of unusual or difficult species a moderator may assist with identification. More information in the 'identifying ` +"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -105,7 +105,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should format a line with no wrapping quotes by adding quotes', function() {
+  it('should format a line with no wrapping quotes by adding quotes', function () {
     const input =
       '    No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -115,7 +115,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should format a line with no indent and  no wrapping quotes by adding quotes', function() {
+  it('should format a line with no indent and  no wrapping quotes by adding quotes', function () {
     const input =
       'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -125,7 +125,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should format a line with a const variable declaration', function() {
+  it('should format a line with a const variable declaration', function () {
     const input =
       "const someBlah = 'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
@@ -136,7 +136,7 @@ describe('doProcessLine', function() {
     ])
   })
 
-  it('should format a line with an indented const variable declaration', function() {
+  it('should format a line with an indented const variable declaration', function () {
     const input =
       "    const someOtherBlah = 'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
