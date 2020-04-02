@@ -147,6 +147,18 @@ describe('doProcessLine', function () {
     ])
   })
 
+  it('should format first literal param to an indented function call with two total params', function () {
+    const input =
+      "      console.warn('Failed to load due to a syntax error. Most likely this platform is not supported (too old)', err)"
+    const result = objectUnderText.doProcessLine(input, 80, noopDebug)
+    assert.deepEqual(result, [
+      '      console.warn(',
+      "        'Failed to load due to a syntax error. Most likely this platform is ' +",
+      "        'not supported (too old)',",
+      '        err)',
+    ])
+  })
+
   // FIXME handle long string in array, all on one line
   // FIXME handle long string as function param, all on one line
   // FIXME handle 'var' variable declaration
