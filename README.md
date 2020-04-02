@@ -2,9 +2,10 @@
 a vimscript n00b so if that bit looks wrong, it probably is.
 
 ## What is it?
-Have you been edited JS code and you have really long string literals that you
+Have you been editing JS code and you have really long string literals that you
 wished would be automatically broken and wrapped to fit your line length? Me
-too, and that's what this module tries to achieve.
+too, and I thought there would already be something does it that. I couldn't
+find it. So that's what this module tries to achieve.
 
 There's a relevant question on StackExchange:
 https://vi.stackexchange.com/questions/15764/how-to-format-quotes-so-that-vim-breaks-long-lines-into-multiple-quotes-on-mult
@@ -27,8 +28,10 @@ easier. It binds a leader sequence so you can easily toggle the this formatter
 on and off. To use it, in vim just source the script `:source
 /path/to/this/repo/script.vim`. The default mapping is `<leader>j`.
 
-Currently it only formats correctly when the string is the only thing on the
-line, so something like what you see in `./test-data.txt` or:
+It doesn't yet support all cases but PRs are welcome, or if you wait long enough
+and I encounter those cases, I'll no doubt code them up.
+
+## Demo time
 ```console
 $ echo "    'some really long string that is wider than the allowable textwidth, which defaults to 80 but can be changed by setting the TW env var'" | ./index.js
     'some really long string that is wider than the allowable textwidth, ' +
@@ -48,6 +51,6 @@ $ echo "    'some really long string that is wider than the allowable textwidth,
 ## TODO
 There's always more to do
 
-  1. automated units tests (I know, I was lazy)
   1. package as npm module so it can be easily installed
   1. handle more cases, like dealing with lines that aren't just string literals
+  1. should the text width be an args rather than an env var?

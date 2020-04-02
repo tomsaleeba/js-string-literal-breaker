@@ -109,21 +109,41 @@ describe('doProcessLine', function() {
     const input =
       '    No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
-    // FIXME implement this
     assert.deepEqual(result, [
       "    'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit ' +",
       "    'amet, consectetur adipiscing elit.'",
     ])
   })
 
+  it('should format a line with no indent and  no wrapping quotes by adding quotes', function() {
+    const input =
+      'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    const result = objectUnderText.doProcessLine(input, 80, noopDebug)
+    assert.deepEqual(result, [
+      "'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, ' +",
+      "'consectetur adipiscing elit.'",
+    ])
+  })
+
   it('should format a line with a const variable declaration', function() {
     const input =
-      "const = 'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
+      "const someBlah = 'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
-    // FIXME implement this
     assert.deepEqual(result, [
-      "const = 'Variable delaration, no trailing comma, too long: Lorem ipsum ' +",
-      "  'dolor sit amet, consectetur adipiscing elit.'",
+      'const someBlah =',
+      "  'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit ' +",
+      "  'amet, consectetur adipiscing elit.'",
+    ])
+  })
+
+  it('should format a line with an indented const variable declaration', function() {
+    const input =
+      "    const someOtherBlah = 'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
+    const result = objectUnderText.doProcessLine(input, 80, noopDebug)
+    assert.deepEqual(result, [
+      '    const someOtherBlah =',
+      "      'Variable delaration, no trailing comma, too long: Lorem ipsum dolor ' +",
+      "      'sit amet, consectetur adipiscing elit.'",
     ])
   })
 
