@@ -1,6 +1,8 @@
 **warning** I stopped working on this as soon as it did what I needed. I'm also
 a vimscript n00b so if that bit looks wrong, it probably is.
 
+[![CircleCI](https://circleci.com/gh/tomsaleeba/js-string-literal-breaker.svg?style=svg)](https://circleci.com/gh/tomsaleeba/js-string-literal-breaker)
+
 ## What is it?
 Have you been editing JS code and you have really long string literals that you
 wished would be automatically broken and wrapped to fit your line length? Me

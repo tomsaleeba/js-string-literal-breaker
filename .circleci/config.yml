@@ -51,7 +51,7 @@ workflows:
   version: 2
   run-tests:
     jobs:
-      - install-dependencies:
+      - install-dependencies
       - check-prettier:
           requires:
             - install-dependencies
