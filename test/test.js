@@ -45,7 +45,7 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       "    'Indent, no trailing comma, too long: Lorem ipsum dolor sit amet, ' +",
-      "    'consectetur adipiscing elit.'",
+      "      'consectetur adipiscing elit.'",
     ])
   })
 
@@ -55,8 +55,8 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       "    'Indent, trailing comma, too long: Lorem ipsum dolor sit amet, ' +",
-      "    'consectetur adipiscing elit. Suspendisse ornare justo a est viverra ' +",
-      "    'eleifend. Nulla sed fringilla nisl.',",
+      "      'consectetur adipiscing elit. Suspendisse ornare justo a est viverra ' +",
+      "      'eleifend. Nulla sed fringilla nisl.',",
     ])
   })
 
@@ -65,7 +65,7 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       "      'Indent, no trailing comma, too long, nested different quotes: Lorem ' +",
-      `      '"ipsum" dolor sit amet, consectetur adipiscing elit.'`,
+      `        '"ipsum" dolor sit amet, consectetur adipiscing elit.'`,
     ])
   })
 
@@ -74,9 +74,9 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       '"Too_long_but_no_spaces_to_break_at_Lorem_ipsum_dolor_sit_amet,_consectetur_a" +',
-      '"dipiscing_elit._Phasellus_pretium_id_diam_eget_mollis._Aliquam_dignissim,_me" +',
-      '"tus_a_volutpat_hendrerit,_mauris_lacus_dignissim_enim,_sit_amet_pharetra_met" +',
-      '"us_mi_ut_tellus.",',
+      '  "dipiscing_elit._Phasellus_pretium_id_diam_eget_mollis._Aliquam_dignissim,_" +',
+      '  "metus_a_volutpat_hendrerit,_mauris_lacus_dignissim_enim,_sit_amet_pharetra" +',
+      '  "_metus_mi_ut_tellus.",',
     ])
   })
 
@@ -86,12 +86,12 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       '        `In the case of unusual or difficult species a moderator may assist ` +',
-      "        `with identification. More information in the 'identifying the ` +",
-      "        `animals!' tab on the somethingzz website: <a ` +",
-      '        `href="https://www.example.com/zzz/pages/getting+started#how_ident_wo` +',
-      '        `rk" ` +',
-      '        `>https://www.example.com/zzz/pages/getting+started#how_ident_work</a` +',
-      '        ` >`,',
+      "          `with identification. More information in the 'identifying the ` +",
+      "          `animals!' tab on the somethingzz website: <a ` +",
+      '          `href="https://www.example.com/zzz/pages/getting+started#how_ident_` +',
+      '          `work" ` +',
+      '          `>https://www.example.com/zzz/pages/getting+started#how_ident_work<` +',
+      '          `/a >`,',
     ])
   })
 
@@ -101,7 +101,7 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       '        `In the case of unusual or difficult species a moderator may assist ` +',
-      "        `with identification. More information in the 'identifying `",
+      "          `with identification. More information in the 'identifying `",
     ])
   })
 
@@ -111,7 +111,7 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       "    'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit ' +",
-      "    'amet, consectetur adipiscing elit.'",
+      "      'amet, consectetur adipiscing elit.'",
     ])
   })
 
@@ -121,7 +121,7 @@ describe('doProcessLine', function () {
     const result = objectUnderText.doProcessLine(input, 80, noopDebug)
     assert.deepEqual(result, [
       "'No quotes, indent, no trailing comma, too long: Lorem ipsum dolor sit amet, ' +",
-      "'consectetur adipiscing elit.'",
+      "  'consectetur adipiscing elit.'",
     ])
   })
 
@@ -132,7 +132,7 @@ describe('doProcessLine', function () {
     assert.deepEqual(result, [
       'const someBlah =',
       "  'Variable delaration, no trailing comma, too long: Lorem ipsum dolor sit ' +",
-      "  'amet, consectetur adipiscing elit.'",
+      "    'amet, consectetur adipiscing elit.'",
     ])
   })
 
@@ -143,7 +143,7 @@ describe('doProcessLine', function () {
     assert.deepEqual(result, [
       '    const someOtherBlah =',
       "      'Variable delaration, no trailing comma, too long: Lorem ipsum dolor ' +",
-      "      'sit amet, consectetur adipiscing elit.'",
+      "        'sit amet, consectetur adipiscing elit.'",
     ])
   })
 
@@ -154,7 +154,7 @@ describe('doProcessLine', function () {
     assert.deepEqual(result, [
       '      console.warn(',
       "        'Failed to load due to a syntax error. Most likely this platform is ' +",
-      "        'not supported (too old)',",
+      "          'not supported (too old)',",
       '        err)',
     ])
   })
